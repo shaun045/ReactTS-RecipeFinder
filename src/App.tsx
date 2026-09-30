@@ -1,6 +1,7 @@
 import './App.css';
 import { SearchAlt } from '@boxicons/react';
 
+
 function App() {
   return (
     <>
@@ -21,6 +22,14 @@ function App() {
             </div>
           </div>
         </section>
+
+        <section className='mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8 justify-items-center text-white'>
+          <ul>
+            <li>Crispy Egg</li>
+          </ul>
+
+        </section>
+
       </div>
     </main>
     </>
