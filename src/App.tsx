@@ -1,8 +1,24 @@
 import './App.css';
 import { SearchAlt } from '@boxicons/react';
+import { useState } from 'react';
+import type { Recipe } from './utils/types';
+import fetchRecipes from './utils/fetchRecipes';
 
 
 function App() {
+
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [input, setInput] = useState('');
+
+
+  async function handleGetRecipes() {
+    const data = await fetchRecipes(input);
+    setRecipes(data);
+  }
+  console.log(recipes);
+  console.log(input);
+
+
   return (
     <>
     <main className='min-h-screen flex justify-center'>
@@ -13,21 +29,35 @@ function App() {
             <h1 className='text-4xl font-medium m-4 text-white'>PROTEIN RECIPES</h1>
             <div className='border border-gray-600 rounded-md flex items-center w-600 max-w-md h-12 pl-3 overflow-hidden'>
               <SearchAlt className='h-8 w-8 shrink-0 text-gray-500'/>
+
               <input 
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
                 className='w-full flex-1 text-xl px-2 outline-none h-full text-white'
-                type="text" placeholder='Search your recipe...'/>
-              <button className='h-full px-6 text-xl text-gray-300 font-medium border border-gray-600 rounded-sm hover:cursor-pointer'>
+                type="text" placeholder='Search your recipe...'
+                />
+
+              <button 
+              onClick={handleGetRecipes}
+              className='h-full px-6 text-xl text-gray-300 font-medium border border-gray-600 rounded-sm hover:cursor-pointer'
+              >
                 Search
               </button>
             </div>
           </div>
         </section>
 
-        <section className='mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8 justify-items-center text-white'>
-          <ul>
-            <li>Crispy Egg</li>
-          </ul>
+        
 
+        <section className='mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8 justify-items-center text-white'>
+          
+          {recipes.map(recipe => (
+            <p
+              key={recipe.id}
+            >
+              {recipe.title}
+            </p>
+          ))}
         </section>
 
       </div>
