@@ -18,7 +18,6 @@ function App() {
   console.log(recipes);
   console.log(input);
 
-
   return (
     <>
     <main className='min-h-screen flex justify-center'>
@@ -52,11 +51,29 @@ function App() {
         <section className='mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8 justify-items-center text-white'>
           
           {recipes.map(recipe => (
-            <p
+            <div
               key={recipe.id}
+              className='rounded-md p-4 w-full text-center justify-center'
             >
-              {recipe.title}
-            </p>
+              {recipe.image && 
+              <img 
+                src={recipe.image} alt={recipe.title} 
+                className='mx-auto pb-2'
+              />}
+              <h3 className='text-lg font-medium'>{recipe.title}</h3>
+              <div>
+                <p>{`Calories: ${recipe.nutrition.nutrients.find(n => n.name === "Calories")?.amount}`}</p>
+                <p>{`Protein: ${recipe.nutrition.nutrients.find(n => n.name === "Protein")?.amount}`}</p>
+              </div>
+              <a 
+                href={recipe.sourceUrl}
+                target='_blank'
+                rel='noopener noreferrer'
+                className="underline decoration-1"
+              >
+                View recipe
+              </a>
+            </div>
           ))}
         </section>
 
